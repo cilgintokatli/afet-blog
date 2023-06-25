@@ -2,6 +2,8 @@ import { getSiteSettings } from '$lib/utils/sanity';
 import { error } from '@sveltejs/kit';
 import type { LayoutServerData } from './$types';
 
+export const prerender = true;
+
 export const load = (async () => {
 	const siteSettings = await getSiteSettings();
 
