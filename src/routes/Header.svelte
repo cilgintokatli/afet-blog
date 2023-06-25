@@ -1,84 +1,60 @@
-<script>
+<script lang="ts">
 	import { page } from '$app/stores';
-	import logo from '$lib/images/svelte-logo.svg';
-	import github from '$lib/images/github.svg';
+
+	import { drawerStore } from '@skeletonlabs/skeleton';
+	export let menuItems: Array<string>;
+	export let siteTitle: string | undefined;
+
+	function drawerOpen(): void {
+		drawerStore.open();
+	}
 </script>
 
-<header>
-	<div class="corner">
-		<a href="https://kit.svelte.dev">
-			<img src={logo} alt="SvelteKit" />
-		</a>
-	</div>
+<div class="sosyal bg-primary-600">
+	<div class="md:max-w-6xl w-full m-auto pt-5 text-right">sosyal medya</div>
+</div>
+<header class="sticky top-0 z-10 bg-primary-600 py-10 md:px-0 px-3">
+	<div class="flex flex-row items-center justify-between w-full md:max-w-6xl m-auto">
+		<div><a class=" text-6xl font-bold" href="/">{siteTitle ?? 'Afet Ağı'}</a></div>
+		<nav class="hidden md:block">
+			<ul>
+				<li aria-current={$page.url.pathname === '/' ? 'page' : undefined}>
+					<a href="/">Anasayfa</a>
+				</li>
+				{#each menuItems as menuItem}
+					{#if menuItem._type == 'category'}
+						<li class="pl-3">
+							<a href="/kategori/{menuItem.slug}">{menuItem.title}</a>
+						</li>
+					{:else}
+						<li class="pl-3">
+							<a href="/{menuItem.slug}">{menuItem.title}</a>
+						</li>
+					{/if}
+				{/each}
+			</ul>
+		</nav>
 
-	<nav>
-		<svg viewBox="0 0 2 3" aria-hidden="true">
-			<path d="M0,0 L1,2 C1.5,3 1.5,3 2,3 L2,0 Z" />
-		</svg>
-		<ul>
-			<li aria-current={$page.url.pathname === '/' ? 'page' : undefined}>
-				<a href="/">Home</a>
-			</li>
-			<li aria-current={$page.url.pathname === '/about' ? 'page' : undefined}>
-				<a href="/about">About</a>
-			</li>
-			<li aria-current={$page.url.pathname.startsWith('/sverdle') ? 'page' : undefined}>
-				<a href="/sverdle">Sverdle</a>
-			</li>
-		</ul>
-		<svg viewBox="0 0 2 3" aria-hidden="true">
-			<path d="M0,0 L0,3 C0.5,3 0.5,3 1,2 L2,0 Z" />
-		</svg>
-	</nav>
-
-	<div class="corner">
-		<a href="https://github.com/sveltejs/kit">
-			<img src={github} alt="GitHub" />
-		</a>
+		<button class="block md:hidden btn" on:click={drawerOpen}>
+			<svg
+				height="32px"
+				id="Layer_1"
+				style="enable-background:new 0 0 32 32;"
+				version="1.1"
+				viewBox="0 0 32 32"
+				width="32px"
+				xml:space="preserve"
+				xmlns="http://www.w3.org/2000/svg"
+				xmlns:xlink="http://www.w3.org/1999/xlink"
+				><path
+					d="M4,10h24c1.104,0,2-0.896,2-2s-0.896-2-2-2H4C2.896,6,2,6.896,2,8S2.896,10,4,10z M28,14H4c-1.104,0-2,0.896-2,2 s0.896,2,2,2h24c1.104,0,2-0.896,2-2S29.104,14,28,14z M28,22H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h24c1.104,0,2-0.896,2-2 S29.104,22,28,22z"
+				/></svg
+			>
+		</button>
 	</div>
 </header>
 
 <style>
-	header {
-		display: flex;
-		justify-content: space-between;
-	}
-
-	.corner {
-		width: 3em;
-		height: 3em;
-	}
-
-	.corner a {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 100%;
-		height: 100%;
-	}
-
-	.corner img {
-		width: 2em;
-		height: 2em;
-		object-fit: contain;
-	}
-
-	nav {
-		display: flex;
-		justify-content: center;
-		--background: rgba(255, 255, 255, 0.7);
-	}
-
-	svg {
-		width: 2em;
-		height: 3em;
-		display: block;
-	}
-
-	path {
-		fill: var(--background);
-	}
-
 	ul {
 		position: relative;
 		padding: 0;
@@ -120,10 +96,11 @@
 		text-transform: uppercase;
 		letter-spacing: 0.1em;
 		text-decoration: none;
-		transition: color 0.2s linear;
+		transition: all 0.2s linear;
 	}
 
-	a:hover {
-		color: var(--color-theme-1);
+	nav li a:hover {
+		background-color: white;
+		opacity: 0.7;
 	}
 </style>
