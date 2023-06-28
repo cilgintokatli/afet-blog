@@ -35,7 +35,7 @@
 					<img
 						src="https://cdn.pixabay.com/photo/2023/05/19/18/07/bee-8005091_1280.jpg"
 						alt="one 1"
-						style="width:100%; object-fit:cover; display: block;"
+						style="width:100%; object-fit:cover; display: block; height:350px"
 						class="rounded-lg"
 					/>
 				</SplideSlide>
@@ -43,7 +43,7 @@
 					<img
 						src="https://cdn.pixabay.com/photo/2023/05/14/10/53/beetle-7992520_1280.jpg"
 						alt="two 2"
-						style="width:100%; object-fit:cover; display: block;"
+						style="width:100%; object-fit:cover; display: block; height:350px"
 						class="rounded-lg"
 					/>
 				</SplideSlide>
@@ -51,7 +51,7 @@
 					<img
 						src="https://cdn.pixabay.com/photo/2023/05/30/06/16/vegetable-pan-8027678_1280.jpg"
 						alt="three 3"
-						style="width:100%; object-fit:cover; display: block;"
+						style="width:100%; object-fit:cover; display: block; height:350px"
 						class="rounded-lg"
 					/>
 				</SplideSlide>
