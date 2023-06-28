@@ -122,7 +122,7 @@
 				</button>
 			</div> -->
 			<div class="splide__arrows mt-10">
-				<button class="splide__arrow splide__arrow--prev bg-primary-400"
+				<button class="splide__arrow splide__arrow--prev md:h-16 md:w-16 h-12 w-12"
 					><svg
 						xmlns="http://www.w3.org/2000/svg"
 						fill="none"
@@ -139,7 +139,7 @@
 						/>
 					</svg>
 				</button>
-				<button class="splide__arrow splide__arrow--next">
+				<button class="splide__arrow splide__arrow--next md:h-16 md:w-16 h-12 w-12">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						fill="none"
@@ -186,8 +186,6 @@
 	} */
 
 	:global(.splide__arrow) {
-		height: 4em !important;
-		width: 4em !important;
 		background: #1da1f2 !important;
 	}
 
