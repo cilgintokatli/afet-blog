@@ -1,9 +1,12 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import 'iconify-icon';
 
 	import { drawerStore } from '@skeletonlabs/skeleton';
 	export let menuItems: Array<string>;
 	export let siteTitle: string | undefined;
+
+	export let sosyalMedya: Object;
 
 	function drawerOpen(): void {
 		drawerStore.open();
@@ -11,7 +14,25 @@
 </script>
 
 <div class="sosyal bg-primary-600">
-	<div class="md:max-w-6xl w-full m-auto pt-5 text-right">sosyal medya</div>
+	<div class="md:max-w-6xl w-full m-auto pt-5">
+		<ul class="flex flex-row gap-5 !justify-end">
+			<li>
+				<a href={sosyalMedya?.twitter}>
+					<iconify-icon icon="mdi:twitter" style="color: white;" width="28" height="28" />
+				</a>
+			</li>
+			<li>
+				<a href={sosyalMedya?.instagram}>
+					<iconify-icon icon="ri:instagram-fill" style="color: white;" width="28" height="28" />
+				</a>
+			</li>
+			<li>
+				<a href={sosyalMedya?.facebook}>
+					<iconify-icon icon="ic:baseline-facebook" style="color: white;" width="28" height="28" />
+				</a>
+			</li>
+		</ul>
+	</div>
 </div>
 <header class="sticky top-0 z-10 bg-primary-600 py-10 md:px-0 px-3">
 	<div class="flex flex-row items-center justify-between w-full md:max-w-6xl m-auto">

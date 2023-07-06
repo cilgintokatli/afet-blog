@@ -1,6 +1,14 @@
 import type { PortableTextBlock } from '@portabletext/types';
 import { createClient } from '@sanity/client';
-import type { ImageAsset, FieldReference, Slug, UrlDefinition, TypeReference } from '@sanity/types';
+import type {
+	ImageAsset,
+	FieldReference,
+	Slug,
+	UrlDefinition,
+	TypeReference,
+	FieldGroup,
+	ObjectField
+} from '@sanity/types';
 import groq from 'groq';
 
 import { PUBLIC_SANITY_DATASET, PUBLIC_SANITY_PROJECT_ID } from '$env/static/public';
@@ -95,7 +103,7 @@ export async function getPage(page: string): Promise<Page> {
 export async function getSiteSettings(): Promise<SiteSetting> {
 	return await client.fetch(groq` *[_type == "settings"][0]{
 	title,
-	 footer,
+	sosyalmedya,
 	 menuItems[]->{
 	   _type,
 	   "slug": slug.current,
@@ -132,4 +140,9 @@ export interface SiteSetting {
 	menuItems: string[];
 	footer?: PortableTextBlock[];
 	ogImage?: ImageAsset;
+	sosyalmedya?: {
+		twitter: string;
+		facebook: string;
+		instagram: string;
+	};
 }

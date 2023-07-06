@@ -24,6 +24,7 @@
 			><Header
 				siteTitle={data.siteSettings.title}
 				menuItems={data.siteSettings.menuItems}
+				sosyalMedya={data.siteSettings.sosyalmedya}
 			/></svelte:fragment
 		>
 		<svelte:fragment slot="sidebarLeft">
