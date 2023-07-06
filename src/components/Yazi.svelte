@@ -22,23 +22,82 @@
 
 	import type { PageData } from '../routes/$types';
 	import type { Post } from '$lib/utils/sanity';
+	import { onMount } from 'svelte';
+	import type { Image } from '@sanity/types';
+	import { browser } from '$app/environment';
 
 	export let data: Post;
 
 	const url = $page.url.href;
 	const title = data.title;
+
+	let largePicture: HTMLDivElement;
+	let smallPicture: HTMLImageElement;
+	let placebox: HTMLDivElement;
+
+	// if (browser) {
+	// 	if (document.readyState == 'complete') {
+	// 		// still loading, wait for the event
+	// 		const placeholder = document.querySelector('.placebox') as HTMLDivElement;
+	// 		console.log(placeholder);
+	// 		placeholder.classList.add('mystyle');
+	// 		placeholder.style.display = 'none';
+	// 	}
+	// }
+
+	onMount(() => {
+		// if (document.readyState == 'complete') {
+		// 	// still loading, wait for the event
+		// 	const placeholder = document.querySelector('.placebox') as HTMLDivElement;
+		// 	console.log(placeholder);
+		// 	placeholder.classList.add('mystyle');
+		// 	placeholder.style.display = 'none';
+		// }
+		// smallPicture.addEventListener('load', (event) => {
+		// 	console.log('page is fully loaded');
+		// });
+		// smallPicture.onload = function () {
+		// 	console.log('smallpic loaded');
+		// 	placebox.remove();
+		// };
+		// largePicture.onload = function () {
+		// 	console.log('large pic loaded');
+		// };
+		var imgLarge = new Image();
+		imgLarge.src = largePicture.dataset.large as HTMLImageElement['src'];
+		imgLarge.onload = function () {
+			imgLarge.classList.add('loaded');
+		};
+		imgLarge.classList.add('picture');
+		largePicture.appendChild(imgLarge);
+	});
 </script>
 
 <section class="post max-w-6xl m-auto mt-4">
 	{#if data.mainImage}
-		<img
+		<!-- <img
 			class="post__cover w-full max-h-[450px] object-cover"
 			src={urlFor(data.mainImage).url()}
 			alt="Cover image for {data.title}"
-		/>
-	{:else}
-		<div class="post__cover--none" />
+		/> -->
+
+		<div
+			bind:this={largePicture}
+			class="image-container w-full max-h-[450px] object-cover"
+			data-large={urlFor(data.mainImage).url()}
+		>
+			<img
+				bind:this={smallPicture}
+				class="placehold img-small"
+				src={urlFor(data.mainImage).width(50).blur(20).url()}
+				alt={data.title}
+			/>
+		</div>
+		<!-- {:else}
+		<div class="post__cover--none" /> -->
 	{/if}
+
+	<!-- <div bind:this={placebox} class="placebox w-full h-[450px] bg-primary-200" /> -->
 	<div class="post__container">
 		<h1 class="post__title text-6xl font-bold leading-relaxed">{data.title}</h1>
 		<!-- {#if data.author}
@@ -149,11 +208,32 @@
 		border-left: 5px solid black;
 		padding-left: var(--space-3);
 		margin-left: var(--space-4);
+		@apply my-2;
 	}
 
 	:global(.post .post__content a) {
-		color: var(--blue-600);
-		text-decoration: none;
+		@apply text-primary-600 font-bold;
+	}
+	:global(.post .post__content h1) {
+		@apply text-7xl px-1;
+	}
+	:global(.post .post__content h2) {
+		@apply text-6xl px-1;
+	}
+	:global(.post .post__content h3) {
+		@apply text-5xl py-2;
+	}
+	:global(.post .post__content h4) {
+		@apply text-4xl py-2;
+	}
+	:global(.post .post__content h5) {
+		@apply text-3xl px-2;
+	}
+	:global(.post .post__content h6) {
+		@apply text-xl py-2;
+	}
+	:global(.post .post__content ul) {
+		@apply list-disc list-inside py-2;
 	}
 
 	:global(.post .post__excerpt) {
@@ -168,5 +248,32 @@
 		.post .post__content {
 			margin-top: var(--space-4);
 		}
+	}
+
+	.image-container {
+		position: relative;
+		overflow: hidden;
+	}
+
+	.placehold {
+		position: relative;
+		width: 100%;
+		/* filter: blur(10px); */
+		transform: scale(1);
+	}
+
+	:global(.picture) {
+		position: absolute;
+		top: 0;
+		left: 0;
+		opacity: 0;
+		width: 100%;
+		height: 100%;
+		transition: opacity 1s linear;
+		object-fit: cover;
+	}
+
+	:global(.picture.loaded) {
+		opacity: 1;
 	}
 </style>
