@@ -18,13 +18,10 @@
 		Twitter,
 		Line,
 		Viber
-	} from 'svelte-share-buttons-component/src';
+	} from 'svelte-share-buttons-component/src/index';
 
-	import type { PageData } from '../routes/$types';
 	import type { Post } from '$lib/utils/sanity';
 	import { onMount } from 'svelte';
-	import type { Image } from '@sanity/types';
-	import { browser } from '$app/environment';
 
 	export let data: Post;
 
@@ -33,7 +30,6 @@
 
 	let largePicture: HTMLDivElement;
 	let smallPicture: HTMLImageElement;
-	let placebox: HTMLDivElement;
 
 	// if (browser) {
 	// 	if (document.readyState == 'complete') {

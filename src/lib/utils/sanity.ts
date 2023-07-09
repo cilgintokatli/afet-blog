@@ -7,7 +7,8 @@ import type {
 	UrlDefinition,
 	TypeReference,
 	FieldGroup,
-	ObjectField
+	ObjectField,
+	Image
 } from '@sanity/types';
 import groq from 'groq';
 
@@ -113,15 +114,47 @@ export async function getSiteSettings(): Promise<SiteSetting> {
    }`);
 }
 
+export async function getSlider(): Promise<Manset[]> {
+	return await client.fetch(
+		groq`*[_type == "manset"] | order(_createdAt desc){
+      _createdAt,
+      title,
+      resim,
+      overview,
+    }`
+	);
+}
+
 export interface Post {
 	_type: 'post';
 	_createdAt: string;
 	title?: string;
-	author: string[];
+	author?: {
+		name: string;
+		image: ImageAsset;
+		bio: PortableTextBlock[];
+	};
 	slug: Slug;
 	excerpt?: string;
 	mainImage?: ImageAsset;
 	body: PortableTextBlock[];
+	categories: Array<Category>;
+}
+
+export interface Category {
+	slug: string;
+	title: string;
+}
+
+export type Slides = Manset[];
+
+export interface Manset {
+	_type: 'manset';
+	_createdAt: string;
+	title?: string;
+	slug: Slug;
+	overview?: string;
+	resim: ImageAsset;
 }
 
 export interface Page {
@@ -137,12 +170,18 @@ export interface Page {
 export interface SiteSetting {
 	_type: 'settings';
 	title?: string;
-	menuItems: string[];
+	menuItems: menuItem[];
 	footer?: PortableTextBlock[];
 	ogImage?: ImageAsset;
-	sosyalmedya?: {
-		twitter: string;
-		facebook: string;
-		instagram: string;
-	};
+	sosyalmedya: SosyalMedya;
+}
+export interface menuItem {
+	_type: string;
+	slug: string;
+	title: string;
+}
+export interface SosyalMedya {
+	twitter: string;
+	facebook: string;
+	instagram: string;
 }

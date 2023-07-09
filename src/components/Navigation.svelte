@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	export let menuItems: string[];
+	import type { menuItem } from '$lib/utils/sanity';
+	export let menuItems: menuItem[];
 
 	import { drawerStore } from '@skeletonlabs/skeleton';
 

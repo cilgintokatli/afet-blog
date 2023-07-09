@@ -3,10 +3,11 @@
 	import 'iconify-icon';
 
 	import { drawerStore } from '@skeletonlabs/skeleton';
-	export let menuItems: Array<string>;
+	import type { SosyalMedya, menuItem } from '$lib/utils/sanity';
+	export let menuItems: menuItem[];
 	export let siteTitle: string | undefined;
 
-	export let sosyalMedya: Object;
+	export let sosyalMedya: SosyalMedya;
 
 	function drawerOpen(): void {
 		drawerStore.open();
