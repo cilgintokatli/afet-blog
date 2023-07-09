@@ -15,7 +15,7 @@
 </script>
 
 <div class="sosyal bg-primary-600">
-	<div class="md:max-w-6xl w-full m-auto pt-5">
+	<div class="md:max-w-6xl w-full m-auto pt-5 px-2 md:px-0">
 		<ul class="flex flex-row gap-5 !justify-end">
 			<li>
 				<a href={sosyalMedya?.twitter}>
@@ -57,7 +57,7 @@
 			</ul>
 		</nav>
 
-		<button class="block md:hidden btn" on:click={drawerOpen}>
+		<button class="block md:hidden btn !px-0" on:click={drawerOpen}>
 			<svg
 				height="32px"
 				id="Layer_1"

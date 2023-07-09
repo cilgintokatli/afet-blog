@@ -136,7 +136,7 @@ export interface Post {
 	};
 	slug: Slug;
 	excerpt?: string;
-	mainImage?: ImageAsset;
+	mainImage: ImageAsset;
 	body: PortableTextBlock[];
 	categories: Array<Category>;
 }

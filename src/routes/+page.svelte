@@ -62,9 +62,9 @@
 <section class="articles md:-mt-20 mt-4">
 	{#await componentPromise}
 		<div
-			class="articleplaceholder w-full md:max-w-6xl grid grid-cols-1 gap-[20px] md:grid-cols-3 grid-flow-row-dense"
+			class="articleplaceholder w-full md:max-w-6xl grid grid-cols-1 gap-[20px] md:grid-cols-3 grid-flow-row-dense px-8 py-10 md:py-0 md:px-0"
 		>
-			<div class=" rounded-xl shadow-lg bg-white animate-pulse h-96 block" />
+			<div class=" rounded-xl shadow-lg bg-primary-600 md:bg-white animate-pulse h-96 block" />
 			<div class=" rounded-xl shadow-lg bg-white animate-pulse h-96 hidden md:block" />
 			<div class=" rounded-xl shadow-lg bg-white animate-pulse h-96 hidden md:block" />
 		</div>

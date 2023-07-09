@@ -69,7 +69,7 @@
 	});
 </script>
 
-<section class="post max-w-6xl m-auto mt-4">
+<section class="post max-w-6xl m-auto mt-4 px-5 md:px-0">
 	{#if data.mainImage}
 		<!-- <img
 			class="post__cover w-full max-h-[450px] object-cover"
@@ -100,7 +100,7 @@
 			<p>{data.author.name}</p>
 		{/if} -->
 
-		<div class="flex flex-row items-center justify-between">
+		<div class="md:flex md:flex-row md:items-center md:justify-between">
 			<div class="flex flex-row items-center text-base">
 				<p class="post__date font-semibold">
 					{formatDate(data._createdAt)}
@@ -112,7 +112,7 @@
 				{/if}
 			</div>
 
-			<div>
+			<div class="md:py-0 py-5">
 				<Twitter class="share-button" text={title} {url} />
 				<Facebook class="share-button" quote={title} {url} />
 				<WhatsApp class="share-button" text="{title} {url}" />
