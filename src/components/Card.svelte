@@ -40,7 +40,7 @@
 >
 	<header>
 		<img
-			src={urlFor(post.mainImage).width(500).height(300).url()}
+			src={urlFor(post.mainImage).width(500).height(300).format('webp').url()}
 			class="bg-black/50 w-full aspect-[12/9] object-cover shadow-md group-hover:shadow-none rounded-lg"
 			alt={post.title}
 		/>
@@ -84,9 +84,11 @@
 			>
 				<img
 					class="avatar-image w-full h-full object-cover"
-					src={urlFor(post.author.image).url()}
+					src={urlFor(post.author.image).width(32).height(32).url()}
 					alt=""
 					style=""
+					width="32"
+					height="32"
 				/>
 			</figure>
 		{/if}

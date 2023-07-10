@@ -19,16 +19,10 @@
 </svelte:head>
 
 <section class="bg-primary-600 opacity-100">
-	<!-- <div>loading...</div>
-	
-		<SSlide>
-			<img src={urlFor(data.sliders[0].resim).url()} alt="sds" class=" w-96 h-auto" />
-		</SSlide> -->
-
 	<div class="grid md:grid-cols-2 gap-3 max-w-full md:max-w-6xl mb-4 md:mb-28 md:p-0 p-8">
 		{#await componentPromise}
 			<div
-				class="phdiv h-[350px] w-full min-w-[326px] md:w-[570px] bg-primary-200 block rounded-lg animate-pulse"
+				class="phdiv md:h-[300px] h-[300px] w-[300px] md:w-[560px] bg-primary-200 block rounded-lg animate-pulse"
 			/>
 		{:then { default: SSlide }}
 			<Splide
@@ -39,7 +33,7 @@
 					autoplay: false,
 					arrows: false,
 					paginationDirection: 'ttb',
-					height: 350
+					height: 300
 				}}
 				aria-label="Afet Ağı Manşet"
 				class="splide-crossfade"
@@ -48,8 +42,10 @@
 					<SplideSlide>
 						<img
 							class="rounded-lg w-full block"
-							src={urlFor(slement?.resim).url()}
+							src={urlFor(slement?.resim).width(500).height(300).fit('max').format('webp').url()}
 							alt={slement.title}
+							width="500"
+							height="300"
 						/>
 					</SplideSlide>
 				{/each}
@@ -92,44 +88,7 @@
 							<SplideSlide><Card {post} /></SplideSlide>
 						{/each}
 					</SplideTrack>
-					<!-- <div class="flex flex-row justify-between mt-10">
-		<button
-			class="flex w-16 h-16 bg-primary-600 text-white rounded-full items-center justify-center"
-			><svg
-				xmlns="http://www.w3.org/2000/svg"
-				fill="none"
-				viewBox="0 0 24 24"
-				stroke-width="1.5"
-				stroke="currentColor"
-				aria-hidden="true"
-				class="w-6 h-6"
-			>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
-				/>
-			</svg></button
-		>
-		<button
-			class="flex w-16 h-16 bg-primary-600 text-white rounded-full items-center justify-center"
-		>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				fill="none"
-				viewBox="0 0 24 24"
-				stroke-width="1.5"
-				stroke="currentColor"
-				class="w-6 h-6"
-			>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-				/>
-			</svg>
-		</button>
-	</div> -->
+
 					<div class="splide__arrows mt-14">
 						<button class="splide__arrow splide__arrow--prev md:!h-16 md:!w-16 !h-12 !w-12"
 							><svg
@@ -196,6 +155,12 @@
 	:global(.splide-crossfade .is-prev) {
 		opacity: 1 !important;
 	} */
+
+	@media screen and (max-width: 600px) {
+		:global(.splide__pagination--ttb) {
+			bottom: 100px !important;
+		}
+	}
 
 	:global(.splide__arrow) {
 		background: #1da1f2 !important;
