@@ -11,11 +11,21 @@
 	const componentPromise = import(
 		'@splidejs/svelte-splide/components/SplideSlide/SplideSlide.svelte'
 	);
+
+	console.log(urlFor(data.sliders[0].resim).width(500).height(300).fit('max').format('webp').url());
 </script>
 
 <svelte:head>
 	<title>{data.siteSettings.title}</title>
 	<meta name="description" content="Afet Ağı" />
+
+	<link
+		rel="preload"
+		fetchpriority="high"
+		as="image"
+		href={urlFor(data.sliders[0].resim).width(500).height(300).fit('max').format('webp').url()}
+		type="image/webp"
+	/>
 </svelte:head>
 
 <section class="bg-primary-600 opacity-100">
@@ -156,9 +166,18 @@
 		opacity: 1 !important;
 	} */
 
-	@media screen and (max-width: 600px) {
+	@media screen and (max-width: 768px) {
 		:global(.splide__pagination--ttb) {
 			bottom: 100px !important;
+		}
+		:global(.articles .splide__pagination__page) {
+			height: 2em !important;
+			width: 2em !important;
+			opacity: 1 !important;
+			margin: 15px !important;
+		}
+		:global(.splide__arrow) {
+			margin-top: 3.6em;
 		}
 	}
 
@@ -181,6 +200,7 @@
 	.articles .splide__arrows {
 		position: relative;
 	}
+
 	.articles .splide__arrow {
 		color: white;
 	}

@@ -18,17 +18,17 @@
 	<div class="md:max-w-6xl w-full m-auto pt-5 px-2 md:px-0">
 		<ul class="flex flex-row gap-5 !justify-end">
 			<li>
-				<a href={sosyalMedya?.twitter}>
+				<a href={sosyalMedya?.twitter} aria-label="twitter">
 					<iconify-icon icon="mdi:twitter" style="color: white;" width="28" height="28" />
 				</a>
 			</li>
 			<li>
-				<a href={sosyalMedya?.instagram}>
+				<a href={sosyalMedya?.instagram} aria-label="instagram">
 					<iconify-icon icon="ri:instagram-fill" style="color: white;" width="28" height="28" />
 				</a>
 			</li>
 			<li>
-				<a href={sosyalMedya?.facebook}>
+				<a href={sosyalMedya?.facebook} aria-label="facebook">
 					<iconify-icon icon="ic:baseline-facebook" style="color: white;" width="28" height="28" />
 				</a>
 			</li>
@@ -57,7 +57,7 @@
 			</ul>
 		</nav>
 
-		<button class="block md:hidden btn !px-0" on:click={drawerOpen}>
+		<button class="block md:hidden btn !px-0" aria-label="Menu" on:click={drawerOpen}>
 			<svg
 				height="32px"
 				id="Layer_1"
