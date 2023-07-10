@@ -40,7 +40,7 @@
 >
 	<header>
 		<img
-			src={urlFor(post.mainImage).width(500).height(300).format('webp').url()}
+			src={urlFor(post.mainImage).width(500).height(300).fit('max').format('webp').url()}
 			class="bg-black/50 w-full aspect-[12/9] object-cover shadow-md group-hover:shadow-none rounded-lg"
 			alt={post.title}
 		/>
@@ -48,7 +48,7 @@
 	<div class="py-4 space-y-4">
 		{#if post.categories}
 			{#each post.categories as category}
-				<h6 class="h6 group-hover:text-white">{category.title}</h6>
+				<h4 class="h6 group-hover:text-white">{category.title}</h4>
 			{/each}
 		{/if}
 
@@ -94,7 +94,7 @@
 		{/if}
 		<div class="flex-auto flex justify-between items-center">
 			{#if post.author}
-				<h6 class="font-bold group-hover:text-white">{post.author.name}</h6>
+				<h5 class="font-bold group-hover:text-white">{post.author.name}</h5>
 			{/if}
 			<small class="group-hover:text-white">{formatDate(post._createdAt)}</small>
 		</div>

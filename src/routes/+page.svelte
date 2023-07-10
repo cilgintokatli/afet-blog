@@ -11,8 +11,6 @@
 	const componentPromise = import(
 		'@splidejs/svelte-splide/components/SplideSlide/SplideSlide.svelte'
 	);
-
-	console.log(urlFor(data.sliders[0].resim).width(500).height(300).fit('max').format('webp').url());
 </script>
 
 <svelte:head>
@@ -24,6 +22,13 @@
 		fetchpriority="high"
 		as="image"
 		href={urlFor(data.sliders[0].resim).width(500).height(300).fit('max').format('webp').url()}
+		type="image/webp"
+	/>
+	<link
+		rel="preload"
+		fetchpriority="high"
+		as="image"
+		href={urlFor(data.posts[0].mainImage).width(500).height(300).fit('max').format('webp').url()}
 		type="image/webp"
 	/>
 </svelte:head>
@@ -179,7 +184,7 @@
 			margin: 15px !important;
 		}
 		:global(.splide__arrow) {
-			margin-top: 1.8em;
+			margin-top: 3.5em;
 			top: 0px;
 		}
 	}
