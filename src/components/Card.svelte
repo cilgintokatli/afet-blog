@@ -35,7 +35,7 @@
   </div> -->
 
 <a
-	class="group {currentVariant} bg-white hover:bg-primary-600 rounded-xl transition ease-in-out overflow-hidden p-10 block motion-reduce:transition-none motion-reduce:hover:transform-none"
+	class="group {currentVariant} md:mx-0 mx-5 bg-white hover:bg-primary-600 rounded-xl transition ease-in-out overflow-hidden p-10 block motion-reduce:transition-none motion-reduce:hover:transform-none"
 	href={`/blog/${post.slug.current}`}
 >
 	<header>

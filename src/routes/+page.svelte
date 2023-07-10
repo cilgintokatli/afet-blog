@@ -32,7 +32,7 @@
 	<div class="grid md:grid-cols-2 gap-3 max-w-full md:max-w-6xl mb-4 md:mb-28 md:p-0 p-8">
 		{#await componentPromise}
 			<div
-				class="phdiv md:h-[300px] h-[300px] w-[300px] md:w-[560px] bg-primary-200 block rounded-lg animate-pulse"
+				class="phdiv md:h-[300px] h-[200px] w-[300px] md:w-[560px] bg-primary-200 block rounded-lg animate-pulse"
 			/>
 		{:then { default: SSlide }}
 			<Splide
@@ -43,7 +43,12 @@
 					autoplay: false,
 					arrows: false,
 					paginationDirection: 'ttb',
-					height: 300
+					height: 300,
+					breakpoints: {
+						640: {
+							height: 200
+						}
+					}
 				}}
 				aria-label="Afet Ağı Manşet"
 				class="splide-crossfade"
@@ -93,13 +98,13 @@
 					hasTrack={false}
 					aria-label="Blog yazıları"
 				>
-					<SplideTrack>
+					<SplideTrack class=" mb-36 md:mb-16">
 						{#each data.posts as post}
 							<SplideSlide><Card {post} /></SplideSlide>
 						{/each}
 					</SplideTrack>
 
-					<div class="splide__arrows mt-14">
+					<div class="splide__arrows mb-14 flex h-max">
 						<button class="splide__arrow splide__arrow--prev md:!h-16 md:!w-16 !h-12 !w-12"
 							><svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -167,9 +172,6 @@
 	} */
 
 	@media screen and (max-width: 768px) {
-		:global(.splide__pagination--ttb) {
-			bottom: 100px !important;
-		}
 		:global(.articles .splide__pagination__page) {
 			height: 2em !important;
 			width: 2em !important;
@@ -177,12 +179,14 @@
 			margin: 15px !important;
 		}
 		:global(.splide__arrow) {
-			margin-top: 3.6em;
+			margin-top: 1.8em;
+			top: 0px;
 		}
 	}
 
 	:global(.splide__arrow) {
 		background: #1da1f2 !important;
+		top: -26px;
 	}
 
 	:global(.splide__pagination__page) {
@@ -210,7 +214,7 @@
 	}
 
 	:global(.articles .splide__pagination) {
-		bottom: -2rem !important;
+		bottom: 0 !important;
 	}
 
 	:global(.articles .splide__pagination__page) {
