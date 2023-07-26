@@ -2,11 +2,14 @@
 	import { Splide, SplideSlide, SplideTrack } from '@splidejs/svelte-splide';
 
 	import '@splidejs/svelte-splide/css/themes/splide-default.min.css';
-	import type { PageData } from './$types';
+	import type { ActionData, PageData } from './$types';
 	import Card from '../components/Card.svelte';
 	import { urlFor } from '$lib/utils/image';
+	import MultiStepForm from '../components/MultiStepForm/MultiStepForm.svelte';
 
 	export let data: PageData;
+
+	export let form: ActionData;
 
 	const componentPromise = import(
 		'@splidejs/svelte-splide/components/SplideSlide/SplideSlide.svelte'
@@ -37,7 +40,7 @@
 	<div class="grid md:grid-cols-2 gap-3 max-w-full md:max-w-6xl mb-4 md:mb-28 md:p-0 p-8">
 		{#await componentPromise}
 			<div
-				class="phdiv md:h-[300px] h-[200px] w-[300px] md:w-[560px] bg-primary-200 block rounded-lg animate-pulse"
+				class="phdiv md:h-[400px] h-[400px] w-[300px] md:w-[560px] bg-primary-200 block rounded-lg animate-pulse"
 			/>
 		{:then { default: SSlide }}
 			<Splide
@@ -48,10 +51,10 @@
 					autoplay: false,
 					arrows: false,
 					paginationDirection: 'ttb',
-					height: 300,
+					height: 400,
 					breakpoints: {
 						640: {
-							height: 200
+							height: 300
 						}
 					}
 				}}
@@ -61,18 +64,21 @@
 				{#each data.sliders as slement}
 					<SplideSlide>
 						<img
-							class="rounded-lg w-full block"
-							src={urlFor(slement?.resim).width(500).height(300).fit('max').format('webp').url()}
+							class=" w-full block"
+							src={urlFor(slement?.resim).width(500).height(400).fit('max').format('webp').url()}
 							alt={slement.title}
 							width="500"
-							height="300"
+							height="400"
 						/>
 					</SplideSlide>
 				{/each}
 			</Splide>
 		{/await}
 
-		<div>form</div>
+		<div>
+			<MultiStepForm {form} />
+			<!-- <Formtest /> -->
+		</div>
 	</div>
 </section>
 <section class="articles md:-mt-20 mt-4">
