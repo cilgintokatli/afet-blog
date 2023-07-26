@@ -94,7 +94,7 @@
 		{/if}
 		<div class="flex-auto flex justify-between items-center">
 			{#if post.author}
-				<h5 class="font-bold group-hover:text-white">{post.author.name}</h5>
+				<div class="font-bold group-hover:text-white">{post.author.name}</div>
 			{/if}
 			<small class="group-hover:text-white">{formatDate(post._createdAt)}</small>
 		</div>

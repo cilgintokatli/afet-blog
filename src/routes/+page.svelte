@@ -24,7 +24,7 @@
 		rel="preload"
 		fetchpriority="high"
 		as="image"
-		href={urlFor(data.sliders[0].resim).width(500).height(300).fit('max').format('webp').url()}
+		href={urlFor(data.sliders[0].resim).width(500).height(400).fit('max').format('webp').url()}
 		type="image/webp"
 	/>
 	<link

@@ -249,6 +249,7 @@
 			<div class="flex flex-col">
 				<label for="password">şifre</label>
 				<input
+					id="password"
 					type="text"
 					name="password"
 					bind:value={password}
