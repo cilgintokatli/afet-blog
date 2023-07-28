@@ -21,10 +21,6 @@
 <svelte:head>
 	<title>{data.siteSettings.title}</title>
 	<meta name="description" content="Afet Ağı" />
-	<meta
-		http-equiv="Content-Security-Policy"
-		content="default-src 'self'; connect-src vitals.vercel-insights.com; img-src https://*; child-src 'none';"
-	/>
 
 	<link
 		rel="preload"

@@ -7,11 +7,24 @@
 	import Navigation from '../components/Navigation.svelte';
 	import { Drawer, drawerStore } from '@skeletonlabs/skeleton';
 	import type { DrawerSettings } from '@skeletonlabs/skeleton';
+	import { webVitals } from '$lib/utils/vitals';
+	import { browser } from '$app/environment';
+	import { page } from '$app/stores';
 
 	// import './styles.css';
 	export let data: LayoutData;
 
 	const currentYear = new Date().getFullYear();
+
+	let analyticsId = import.meta.env.VERCEL_ANALYTICS_ID;
+
+	$: if (browser && analyticsId) {
+		webVitals({
+			path: $page.url.pathname,
+			params: $page.params,
+			analyticsId
+		});
+	}
 </script>
 
 <Drawer>
