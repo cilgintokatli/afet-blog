@@ -5,8 +5,6 @@ import { json } from '@sveltejs/kit';
 export const POST = async ({ request }) => {
 	const { isim, email, input1, input2, password } = await request.json();
 
-	const zart;
-
 	const AIRTABLE_BASE_ID = 'appVieY4MkgOAYcTV';
 	const AIRTABLE_URL = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${AIRTABLE_TABLE_ID}`;
 
