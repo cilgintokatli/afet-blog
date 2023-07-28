@@ -1,11 +1,11 @@
-import { AIRTABLE_TOKEN, AIRTABLE_TABLE_ID, AIRTABLE_BASE_ID } from '$env/static/private';
+import { AIRTABLE_TOKEN, AIRTABLE_TABLE_ID, AIRTABLE_BASE } from '$env/static/private';
 
 import { json } from '@sveltejs/kit';
 
 export const POST = async ({ request }) => {
 	const { isim, email, input1, input2, password } = await request.json();
 
-	const AIRTABLE_URL = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${AIRTABLE_TABLE_ID}`;
+	const AIRTABLE_URL = `https://api.airtable.com/v0/${AIRTABLE_BASE}/${AIRTABLE_TABLE_ID}`;
 
 	let data = {
 		records: [
