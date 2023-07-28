@@ -4,11 +4,11 @@
 	import { ProgressBar } from '@skeletonlabs/skeleton';
 	import Step4 from './Step4.svelte';
 	import { fade, fly } from 'svelte/transition';
-	import ErrorMessage from './ErrorMessage.svelte';
 	import type { ActionData } from '../../routes/$types';
 	import { writable } from 'svelte/store';
 	import { invalidateAll } from '$app/navigation';
 	import type { ActionResult } from '@sveltejs/kit';
+	import Icon from '@iconify/svelte';
 
 	export let form: ActionData;
 
@@ -326,7 +326,6 @@
 			class:!opacity-100={step == 3}
 		>
 			<div class="flex flex-col items-center">
-				<div class="text-lg mb-5">teşekkürler</div>
 				{#if submissionStatus === null}
 					<svg
 						class="animate-spin -ml-1 mr-3 h-16 w-16 text-primary-600"
@@ -352,6 +351,9 @@
 				{:else if submissionStatus === 'failed'}
 					<div>form gönderilemedi.</div>
 				{:else if submissionStatus === 'success'}
+					<Icon icon="ep:success-filled" width="100" height="100" color="green" />
+					<div class="text-lg mb-5">teşekkürler</div>
+
 					<div>form gönderildi.</div>
 				{/if}
 			</div>

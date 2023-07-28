@@ -13,6 +13,7 @@
 	"devDependencies": {
 		"@felte/reporter-svelte": "^1.1.10",
 		"@fontsource/fira-mono": "^4.5.10",
+		"@iconify/svelte": "^3.1.4",
 		"@neoconfetti/svelte": "^1.0.0",
 		"@portabletext/svelte": "^2.0.0",
 		"@portabletext/types": "^2.0.2",
