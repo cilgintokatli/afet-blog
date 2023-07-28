@@ -1,4 +1,5 @@
 import { AIRTABLE_TOKEN, AIRTABLE_TABLE_ID, AIRTABLE_BASE_ID } from '$env/static/private';
+
 import { json } from '@sveltejs/kit';
 
 export const POST = async ({ request }) => {
