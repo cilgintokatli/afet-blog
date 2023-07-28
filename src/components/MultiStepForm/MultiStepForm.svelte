@@ -352,7 +352,7 @@
 					<div>form gönderilemedi.</div>
 				{:else if submissionStatus === 'success'}
 					<Icon icon="ep:success-filled" width="100" height="100" color="green" />
-					<div class="text-lg mb-5">teşekkürler</div>
+					<div class="text-xl font-bold mb-5">teşekkürler</div>
 
 					<div>form gönderildi.</div>
 				{/if}
