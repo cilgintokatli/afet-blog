@@ -1,4 +1,4 @@
-import { AIRTABLE_TOKEN, AIRTABLE_TABLE_ID, AIRTABLE_BASE_ID } from '$env/static/private';
+import { AIRTABLE_BASE_ID, AIRTABLE_TABLE_ID, AIRTABLE_TOKEN } from '$env/static/private';
 
 import { json } from '@sveltejs/kit';
 
