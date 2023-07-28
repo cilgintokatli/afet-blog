@@ -10,13 +10,6 @@ const schema = z.object({
 export const actions: Actions = {
 	multistep: async ({ request, fetch }: RequestEvent) => {
 		const data = Object.fromEntries(await request.formData());
-		// const data = await request.formData();
-
-		console.table(data);
-
-		// const data = await request.formData();
-
-		// const isim = data.get('isim');
 
 		const res = await fetch('/submit-multistep', {
 			method: 'POST',
