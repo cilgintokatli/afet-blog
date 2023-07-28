@@ -8,23 +8,31 @@ const schema = z.object({
 });
 
 export const actions: Actions = {
-	multistep: async ({ request }: RequestEvent) => {
-		console.log('form postladı');
-		const offf = Object.fromEntries(await request.formData());
+	multistep: async ({ request, fetch }: RequestEvent) => {
+		const data = Object.fromEntries(await request.formData());
+		// const data = await request.formData();
+
+		console.table(data);
 
 		// const data = await request.formData();
 
 		// const isim = data.get('isim');
 
-		const { isim } = offf;
-
-		console.log(isim);
-
-		console.table(offf);
-
+		const res = await fetch('/submit-multistep', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(data)
+		});
+		const responseJson = await res.json();
 		return {
-			success: true
+			body: responseJson
 		};
+
+		// return {
+		// 	success: true
+		// };
 		// const form = await superValidate(request, schema);
 		// console.log('POST', form);
 		// // Convenient validation check:

@@ -1,23 +1,27 @@
 <script lang="ts">
 	import * as z from 'zod';
-	import { enhance } from '$app/forms';
+	import { applyAction, deserialize, enhance } from '$app/forms';
 	import { ProgressBar } from '@skeletonlabs/skeleton';
 	import Step4 from './Step4.svelte';
 	import { fade, fly } from 'svelte/transition';
 	import ErrorMessage from './ErrorMessage.svelte';
 	import type { ActionData } from '../../routes/$types';
 	import { writable } from 'svelte/store';
+	import { invalidateAll } from '$app/navigation';
+	import type { ActionResult } from '@sveltejs/kit';
 
 	export let form: ActionData;
 
 	export let step = 0;
-	let root;
+
+	let postForm: boolean;
 
 	let isim;
 	let email;
 	let input1;
 	let input2;
 	let password;
+	let submitButton: HTMLButtonElement;
 
 	const multiForm = writable([]);
 
@@ -53,6 +57,8 @@
 	};
 
 	$: steps = [Step1, Step2, Step3, Step4];
+
+	export let submissionStatus;
 
 	const validationSchemas = [
 		z.object({
@@ -100,7 +106,6 @@
 			props.value = 0;
 		}
 		$multiForm.pop();
-		console.log($multiForm);
 	}
 
 	async function handleNext() {
@@ -112,17 +117,57 @@
 			$multiForm = [...$multiForm, steps[step]];
 			$multiForm = $multiForm;
 
-			console.log($multiForm);
 			step += 1;
 			props.value += 100 / (steps.length - 1);
 		} catch (err) {
 			if (err instanceof z.ZodError) {
 				fieldErrors = err.issues;
 
-				const xpath = fieldErrors.map((x) => x.path);
+				const xpath = fieldErrors.map((x) => x.path).flat();
 				hatalar = xpath;
 
-				hatalar = [].concat(...hatalar);
+				await sleep(50);
+				const hasErr: HTMLInputElement | null = document.querySelector('.has-err');
+				hasErr?.focus();
+				return fieldErrors;
+			}
+		}
+	}
+
+	async function handleSubmit(e) {
+		try {
+			const isNull = await validationSchemas[step].parseAsync(steps[step]);
+			if (isNull !== null) {
+				postForm === true;
+				step += 1;
+				props.value += 100 / (steps.length - 1);
+				submissionStatus = null;
+
+				const data = new FormData(this);
+
+				const response = await fetch(this.action, {
+					method: 'POST',
+					body: data,
+					headers: {
+						'x-sveltekit-action': 'true'
+					}
+				});
+
+				const result: ActionResult = deserialize(await response.text());
+
+				if (result.type === 'success') {
+					// rerun all `load` functions, following the successful update
+					await invalidateAll();
+				}
+
+				applyAction(result);
+			}
+		} catch (err) {
+			if (err instanceof z.ZodError) {
+				fieldErrors = err.issues;
+
+				const xpath = fieldErrors.map((x) => x.path).flat();
+				hatalar = xpath;
 
 				await sleep(50);
 				const hasErr: HTMLInputElement | null = document.querySelector('.has-err');
@@ -152,11 +197,10 @@
 		{/each}
 	</div> -->
 	<form
-		use:enhance
 		method="POST"
 		action="?/multistep"
 		class="transition-container"
-		on:submit|preventDefault
+		on:submit|preventDefault={handleSubmit}
 	>
 		<!-- 0 -->
 		<div
@@ -172,12 +216,17 @@
 					name="isim"
 					class="w-full flex-grow"
 					bind:value={isim}
+					aria-invalid={hatalar?.includes('isim')}
 					class:has-err={hatalar?.includes('isim')}
 				/>
 
 				{#each fieldErrors as fError}
 					{#if fError.path == 'isim'}
-						<ErrorMessage {fError} />
+						<ul class="list-inside list-disc ml-5">
+							<li in:fly={{ y: 20, duration: 300 }} out:fade>
+								{fError.message}
+							</li>
+						</ul>
 					{/if}
 				{/each}
 
@@ -187,12 +236,13 @@
 					type="text"
 					name="email"
 					bind:value={email}
+					aria-invalid={hatalar?.includes('email')}
 					class:has-err={hatalar?.includes('email')}
 				/>
 				{#each fieldErrors as fError}
 					{#if fError.path == 'email'}
 						<ul class="list-inside list-disc ml-5">
-							<li in:fly={{ y: 20, duration: 600 }} out:fade>
+							<li transion:fly={{ y: 20, duration: 300 }}>
 								{fError.message}
 							</li>
 						</ul>
@@ -213,12 +263,13 @@
 					type="text"
 					name="input1"
 					bind:value={input1}
+					aria-invalid={hatalar?.includes('input1')}
 					class:has-err={hatalar?.includes('input1')}
 				/>
 				{#each fieldErrors as fError}
 					{#if fError.path == 'input1'}
 						<ul class="list-inside list-disc ml-5">
-							<li transition:fly={{ y: 20, duration: 600 }}>{fError.message}</li>
+							<li transition:fly={{ y: 20, duration: 300 }}>{fError.message}</li>
 						</ul>
 					{/if}
 				{/each}
@@ -229,12 +280,13 @@
 					type="text"
 					name="input2"
 					bind:value={input2}
+					aria-invalid={hatalar?.includes('input2')}
 					class:has-err={hatalar?.includes('input2')}
 				/>
 				{#each fieldErrors as fError}
 					{#if fError.path == 'input2'}
 						<ul class="list-inside list-disc ml-5">
-							<li transition:fly={{ y: 20, duration: 600 }}>{fError.message}</li>
+							<li transition:fly={{ y: 20, duration: 300 }}>{fError.message}</li>
 						</ul>
 					{/if}
 				{/each}
@@ -253,12 +305,13 @@
 					type="text"
 					name="password"
 					bind:value={password}
+					aria-invalid={hatalar?.includes('password')}
 					class:has-err={hatalar?.includes('password')}
 				/>
 				{#each fieldErrors as fError}
 					{#if fError.path == 'password'}
 						<ul class="list-inside list-disc ml-5">
-							<li in:fly={{ y: 20, duration: 600 }} out:fly={{ y: 20, duration: 600 }}>
+							<li transition:fly={{ y: 20, duration: 300 }}>
 								{fError.message}
 							</li>
 						</ul>
@@ -272,8 +325,35 @@
 			class:!z-10={step == 3}
 			class:!opacity-100={step == 3}
 		>
-			<div class="flex flex-col">
-				<p>teşekkürler</p>
+			<div class="flex flex-col items-center">
+				<div class="text-lg mb-5">teşekkürler</div>
+				{#if submissionStatus === null}
+					<svg
+						class="animate-spin -ml-1 mr-3 h-16 w-16 text-primary-600"
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+					>
+						<circle
+							class="opacity-25"
+							cx="12"
+							cy="12"
+							r="10"
+							stroke="currentColor"
+							stroke-width="4"
+						/>
+						<path
+							class="opacity-75"
+							fill="currentColor"
+							d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+						/>
+					</svg>
+					<div>form gönderiliyor...</div>
+				{:else if submissionStatus === 'failed'}
+					<div>form gönderilemedi.</div>
+				{:else if submissionStatus === 'success'}
+					<div>form gönderildi.</div>
+				{/if}
 			</div>
 		</div>
 
@@ -281,23 +361,46 @@
 		<button type="button" on:click={handlePrev}>Geri</button>
 	{/if} -->
 		<div class="relative w-full">
-			{#if step !== 0}
+			{#if step !== 0 && step !== steps.length - 1}
 				<button
 					type="button"
 					class="mt-5 float-left btn variant-filled-primary !rounded-md"
 					on:click={handlePrev}>Geri</button
 				>
 			{/if}
-			{#if step !== steps.length - 1}
+			{#if step !== steps.length - 1 && step !== steps.length - 2}
 				<button
 					type="button"
 					class="mt-5 float-right btn variant-filled-primary !rounded-md"
 					on:click={handleNext}>ileri</button
 				>
-			{:else}
-				<button type="submit" class="mt-5 float-right btn variant-filled-primary !rounded-md"
-					>Gönder</button
+			{/if}
+			{#if step == steps.length - 2}
+				<button
+					on:click={() => {
+						submissionStatus = null;
+					}}
+					bind:this={submitButton}
+					type="submit"
+					class="mt-5 float-right btn variant-filled-primary !rounded-md"
 				>
+					Gönder</button
+				>
+				<!-- <button
+					data-sveltekit-reload
+					on:click={(e) => {
+						if (hatalar == null) {
+							step += 1;
+							submissionStatus = null;
+						}
+					}}
+					bind:this={submitButton}
+					disabled={submissionStatus != null}
+					type="submit"
+					class="mt-5 float-right btn variant-filled-primary !rounded-md disabled:opacity-70 disabled:cursor-not-allowed"
+				>
+					Gönder</button
+				> -->
 			{/if}
 		</div>
 	</form>

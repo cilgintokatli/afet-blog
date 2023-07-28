@@ -11,6 +11,8 @@
 
 	export let form: ActionData;
 
+	$: submissionStatus = form?.body?.message;
+
 	const componentPromise = import(
 		'@splidejs/svelte-splide/components/SplideSlide/SplideSlide.svelte'
 	);
@@ -76,7 +78,7 @@
 		{/await}
 
 		<div>
-			<MultiStepForm {form} />
+			<MultiStepForm {form} {submissionStatus} />
 			<!-- <Formtest /> -->
 		</div>
 	</div>
