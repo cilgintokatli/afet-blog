@@ -46,6 +46,7 @@
 			/>
 		{:then { default: SSlide }}
 			<Splide
+				hasTrack={false}
 				options={{
 					type: 'fade',
 					easing: 'ease',
@@ -63,17 +64,20 @@
 				aria-label="Afet Ağı Manşet"
 				class="splide-crossfade"
 			>
-				{#each data.sliders as slement}
-					<SplideSlide>
-						<img
-							class=" w-full block"
-							src={urlFor(slement?.resim).width(500).height(400).fit('max').format('webp').url()}
-							alt={slement.title}
-							width="500"
-							height="400"
-						/>
-					</SplideSlide>
-				{/each}
+				<SplideTrack>
+					{#each data.sliders as slement}
+						<SplideSlide>
+							<img
+								class=" w-full block"
+								src={urlFor(slement?.resim).width(500).height(400).fit('max').format('webp').url()}
+								alt={slement.title}
+								width="500"
+								height="400"
+							/>
+						</SplideSlide>
+					{/each}
+				</SplideTrack>
+				<ul class="splide__pagination top-slider" />
 			</Splide>
 		{/await}
 
@@ -251,5 +255,36 @@
 
 	:global(.picture.loaded) {
 		opacity: 1;
+	}
+
+	@media screen and (min-width: 769px) {
+		:global(.top-slider li .splide__pagination__page) {
+			@apply transition-all duration-300 ease-in rounded-full;
+		}
+		:global(.top-slider li .splide__pagination__page.is-active) {
+			transform: scale(1) !important;
+			height: 3.5em !important;
+		}
+	}
+
+	@media screen and (max-width: 768px) {
+		.top-slider {
+			right: unset !important;
+			top: unset !important;
+			bottom: 0px;
+			display: flex;
+			flex-direction: row !important;
+			align-items: center !important;
+			transform: translateX(-50%);
+			left: 50% !important;
+		}
+		:global(.top-slider li .splide__pagination__page) {
+			@apply transition-all duration-300 ease-in rounded-full;
+			height: 1.3em !important;
+		}
+		:global(.top-slider li .splide__pagination__page.is-active) {
+			transform: scale(1) !important;
+			width: 3.5em !important;
+		}
 	}
 </style>
